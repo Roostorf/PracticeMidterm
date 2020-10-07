@@ -102,7 +102,7 @@ public class List {
       } else if (option.equalsIgnoreCase("i")) { 
         InsertionSort(list);
       } else if (option.equalsIgnoreCase("s")) {
-        BubbleSort(list);
+        SelectionSort(list);
       } else {
         sortInput(list);
       }
@@ -113,6 +113,34 @@ public class List {
     } 
     inKey.close();
     
+  }
+
+  /**
+   * @param list
+   */
+  private static void SelectionSort(ArrayList<Integer> list) {
+    int n = list.size(); 
+    
+    // traverse unsorted array 
+    for (int i = 0; i < n - 1; i++) 
+    { 
+        // Find the minimum element in unsorted array 
+        int min_idx = i; 
+        for (int j = i+1; j < n; j++) {
+          if (list.get(j) < list.get(min_idx)) {
+            min_idx = j; 
+
+          }
+          Print(list);
+        }
+        // swap minimum element with compared element  
+        int temp = list.get(min_idx); 
+        list.set(min_idx, list.get(i)); 
+        list.set(i, temp);
+        Print(list);
+          
+        }
+
   }
 
   /**
@@ -143,87 +171,23 @@ public class List {
    */
   private static void BubbleSort(ArrayList<Integer> list) {
     
-    int index = 0;
-    int j = list.get(index);
-    int k = list.get(index + 1);
-    
-    //final long startTime = System.nanoTime();
-    //swaps = 0;
-    //comps = 0;
-    int size = list.size();
-    int n = 0;
-    boolean didSwap = false;
-    do {
-      didSwap = false;
-      for (int i = 0; i < (size - 1) - n; i++) {
-        //comps++;
-        if (j > k) {
-          int temp = j;
-          list.set(index, k);
-          list.set(index + 1, temp);
-          //swaps++;
-          didSwap = true;
-          Print(list);
-          if (i < size - 2) {
-            index++;
-            j = list.get(index);
-            k = list.get(index + 1);
-          } else {
-            index = 0;
-            i = - 1;
-            j = list.get(index);
-            k = list.get(index + 1);
-          } 
-          
-        } else { 
-          index++;
-          j = list.get(index);
-          k = list.get(index + 1);
-          
+    int n = list.size();
+    //iterate over the array comparing adjacent elements
+    for (int i = 0; i < n - 1; i++) {
+      for (int j = 0; j < n - i - 1; j++) {
+        //if elements not in order, swap them 
+        
+        if (list.get(j) > list.get(j + 1))  {
+            int temp = list.get(j);
+            //intArray[j] = intArray[j+1];
+            list.set(j, list.get(j + 1));
+            //intArray[j+1] = temp;
+            list.set(j + 1, temp);
         }
+        Print(list);
       }
-    } while (didSwap);
-
-    //final long endTime = System.nanoTime();
-    //sortTime = endTime - startTime;
-    
-    
-    /*
-    int j = list.get(indexCount);
-    int k = list.get(indexCount + 1);
-    int temp = 0;
-    int size = list.size();
-
-    System.out.println(j);
-    System.out.println(k);
-    
-    while(j > k && indexCount < size - 1) {
-      PrintString("this is true");
-      temp = list.get(indexCount + 1);
-      list.set(indexCount + 1, list.get(indexCount));
-      list.set(indexCount, temp);
       
-      Print(list);
-      
-      indexCount++;
-      if (indexCount < size - 1) {
-        j = list.get(indexCount);
-        k = list.get(indexCount + 1);
-      }
     }
-    
-    indexCount = 0;
-    j = list.get(indexCount);
-    k = list.get(indexCount + 1);
-    if (j > k){
-      
-      Bubblesort(list, indexCount);  
-    } else if (indexCount < size - 1){
-      indexCount++;
-      Bubblesort(list, indexCount);
-    }*/
-    
-    Print(list);
   
   }
 
