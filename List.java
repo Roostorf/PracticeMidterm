@@ -126,8 +126,6 @@ public class List {
     } finally {
       inKey.close();
     }
-
-    
   }
 
   /**
