@@ -18,11 +18,12 @@ public class List {
   public static void main(String[] args) {
     // iterators
     ArrayList<Integer> list = new ArrayList<Integer>();
-    
+    list.add(1001);
     boolean run = false;
     
+    
     Random random = new Random();   
-    int listSize = random.nextInt(10 - 3 + 1) + 3;  // Creates an integer between 3 and 10
+    int listSize = random.nextInt(25 - 3 + 1) + 3;  // Creates an integer between 3 and 10
     for(int i = 0; i < listSize; i++) {
       int ranDigit = random.nextInt(1000);  // Creates an integer between 3 and 100
       list.add(ranDigit);
@@ -48,7 +49,7 @@ public class List {
    */
   private static void DoWhatNow(ArrayList<Integer> list, boolean run) {
     // What would you like to do
-    PrintString("What would you like to do? [A]dd Add[E] [G]et [R]emove [I]ndexof [S]et Si[Z]e I[T]erate"); // Asks What would you like to do?
+    PrintString("What would you like to do? [A]dd Add[E] [G]et [R]emove [I]ndexof [S]et Si[Z]e I[T]erate S[O]rt"); // Asks What would you like to do?
     // Asks for an index to get
     Scanner inKey = new Scanner(System.in);
     inKey.useDelimiter(System.lineSeparator());
@@ -71,15 +72,159 @@ public class List {
         AddEInput(list);
       } else if (option.equalsIgnoreCase("t")) { 
         IterateInput(list);
+      }else if (option.equalsIgnoreCase("o")) { 
+        sortInput(list);
       }else {
         DoWhatNow(list, run);
       }
 
       } catch (Exception e) {
       // TODO: handle exception
+        Print(list);
         PrintString("Error in DoWhatNow " + e);
     } 
     inKey.close();
+  }
+
+  /**
+   * @param list
+   */
+  private static void sortInput(ArrayList<Integer> list) {
+    PrintString("What type of sorting method? [B]ubble [I]nserton [S]elect");
+    
+    Scanner inKey = new Scanner(System.in);
+    inKey.useDelimiter(System.lineSeparator());
+    try {
+      String option = inKey.next();
+      
+      if (option.equalsIgnoreCase("b")) {
+        BubbleSort(list);
+      } else if (option.equalsIgnoreCase("i")) { 
+        InsertionSort(list);
+      } else if (option.equalsIgnoreCase("s")) {
+        BubbleSort(list);
+      } else {
+        sortInput(list);
+      }
+
+      } catch (Exception e) {
+      // TODO: handle exception
+        PrintString("Error in sort " + e);
+    } 
+    inKey.close();
+    
+  }
+
+  /**
+   * @param list
+   */
+  private static void InsertionSort(ArrayList<Integer> list) { 
+
+    for(int k = 1; k < list.size(); k++)   {  
+      int temp = list.get(k);  
+      int j = k - 1;  
+      while(j >= 0 && temp <= list.get(j))   {  
+          //numArray[j + 1] = numArray[j]; 
+          list.set(j + 1, list.get(j));
+          j = j - 1; 
+          Print(list);
+      }  
+      //numArray[j + 1] = temp;  
+      list.set(j + 1, temp);
+  }  
+  //print the sorted array
+  Print(list);
+    
+
+  }
+
+  /**
+   * @param list
+   */
+  private static void BubbleSort(ArrayList<Integer> list) {
+    
+    int index = 0;
+    int j = list.get(index);
+    int k = list.get(index + 1);
+    
+    //final long startTime = System.nanoTime();
+    //swaps = 0;
+    //comps = 0;
+    int size = list.size();
+    int n = 0;
+    boolean didSwap = false;
+    do {
+      didSwap = false;
+      for (int i = 0; i < (size - 1) - n; i++) {
+        //comps++;
+        if (j > k) {
+          int temp = j;
+          list.set(index, k);
+          list.set(index + 1, temp);
+          //swaps++;
+          didSwap = true;
+          Print(list);
+          if (i < size - 2) {
+            index++;
+            j = list.get(index);
+            k = list.get(index + 1);
+          } else {
+            index = 0;
+            i = - 1;
+            j = list.get(index);
+            k = list.get(index + 1);
+          } 
+          
+        } else { 
+          index++;
+          j = list.get(index);
+          k = list.get(index + 1);
+          
+        }
+      }
+    } while (didSwap);
+
+    //final long endTime = System.nanoTime();
+    //sortTime = endTime - startTime;
+    
+    
+    /*
+    int j = list.get(indexCount);
+    int k = list.get(indexCount + 1);
+    int temp = 0;
+    int size = list.size();
+
+    System.out.println(j);
+    System.out.println(k);
+    
+    while(j > k && indexCount < size - 1) {
+      PrintString("this is true");
+      temp = list.get(indexCount + 1);
+      list.set(indexCount + 1, list.get(indexCount));
+      list.set(indexCount, temp);
+      
+      Print(list);
+      
+      indexCount++;
+      if (indexCount < size - 1) {
+        j = list.get(indexCount);
+        k = list.get(indexCount + 1);
+      }
+    }
+    
+    indexCount = 0;
+    j = list.get(indexCount);
+    k = list.get(indexCount + 1);
+    if (j > k){
+      
+      Bubblesort(list, indexCount);  
+    } else if (indexCount < size - 1){
+      indexCount++;
+      Bubblesort(list, indexCount);
+    }*/
+    
+    Print(list);
+  
   }
 
   /**
